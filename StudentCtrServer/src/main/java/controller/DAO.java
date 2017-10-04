@@ -58,11 +58,11 @@ public class DAO {
         
         public ArrayList<Student> searchStudent(String key) {
             System.out.println("start search student for key = " + key);
-            String query = "select * from studentdb.tblStudent a where a.name like \"%?%\"";
+            String query = "select * from studentdb.tblStudent a where a.name like ?";
             ArrayList<Student> listStudent = new ArrayList<Student>();
             try {
                 ps = conn.prepareStatement(query);
-                ps.setString(1, key);
+                ps.setString(1,"%" + key + "%");
                 ResultSet rs = ps.executeQuery();   
                 while(rs.next()) {
                     int id = rs.getInt(1);

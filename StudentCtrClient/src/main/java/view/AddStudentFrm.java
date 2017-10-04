@@ -103,9 +103,9 @@ public class AddStudentFrm extends JFrame implements ActionListener {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Student st = new Student(Integer.parseInt(tfId.getText()), tfName.getText(), dob, tfAddress.getText());
+		Student st = new Student(Integer.parseInt(tfId.getText()), tfName.getText(), dob, tfAddress.getText());     
 		tcpClientCtr.sendStudent(st);
-		System.out.println(tcpClientCtr.receiveResult());
+		System.out.println(tcpClientCtr.receiveObject());
 		tcpClientCtr.closeConnection();
 	}
 	

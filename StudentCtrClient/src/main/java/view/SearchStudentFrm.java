@@ -1,16 +1,23 @@
 package view;
 
+import controller.TCPClientController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import ptit.hungvu.model.Student;
 
 /**
  *
  * @author HungVu
  */
 public class SearchStudentFrm extends javax.swing.JFrame implements ActionListener {
+
     public SearchStudentFrm() {
         initComponents();
+        btnSearch.addActionListener(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -86,14 +93,6 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SearchStudentFrm().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JPanel jPanel1;
@@ -104,12 +103,26 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
 
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
-        if(btnSearch.equals(btn)) {
+        if (btnSearch.equals(btn)) {
             clickBtnSearch();
         }
     }
-    
+
     public void clickBtnSearch() {
-        
+        TCPClientController tcpClientCtr = new TCPClientController();
+        tcpClientCtr.connect(1796, "localhost");
+        tcpClientCtr.sendSearchKey(tfSearch.getText());
+        ArrayList<Student> arr = tcpClientCtr.receiveSearchResul();
+        displayResult(arr);
+        tcpClientCtr.closeConnection();
+    }
+    
+    public void displayResult(ArrayList<Student> listStudent) {
+        DefaultTableModel model = (DefaultTableModel) tblResult.getModel();
+        model.getDataVector().removeAllElements();
+        tblResult.repaint();
+        for (Student st : listStudent) {
+            model.addRow(new Object[]{st.getId(), st.getName(), st.getdOb(), st.getAddress()});
+        }
     }
 }
