@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLServerConn {
-
 	public static Connection getSqlServerConn() {
 		String hostName = "localhost";
 		String dbName = "hoteldb";
@@ -21,6 +20,5 @@ public class SQLServerConn {
 			ex.printStackTrace();
 		}
 		return conn;
-
 	}
 }

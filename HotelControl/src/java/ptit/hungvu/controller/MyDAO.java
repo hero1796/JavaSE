@@ -1,4 +1,4 @@
-package ptit.hungvu.controller;
+package java.ptit.hungvu.controller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
