@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
 import controller.TCPClientController;
@@ -6,19 +11,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import ptit.hungvu.model.Student;
+import ptit.hungvu.student.Student;
 
 /**
  *
  * @author HungVu
  */
 public class SearchStudentFrm extends javax.swing.JFrame implements ActionListener {
-
-    public SearchStudentFrm() {
-        initComponents();
-        btnSearch.addActionListener(this);
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,7 +62,7 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
                 .addGap(65, 65, 65))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -74,7 +73,7 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -91,15 +90,11 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblResult;
-    private javax.swing.JTextField tfSearch;
-    // End of variables declaration//GEN-END:variables
-
+    public SearchStudentFrm() {
+        initComponents();
+        btnSearch.addActionListener(this);
+    }
+    
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
         if (btnSearch.equals(btn)) {
@@ -110,8 +105,8 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
     public void clickBtnSearch() {
         TCPClientController tcpClientCtr = new TCPClientController();
         tcpClientCtr.connect(1796, "localhost");
-        tcpClientCtr.sendSearchKey(tfSearch.getText());
-        ArrayList<Student> arr = tcpClientCtr.receiveSearchResul();
+        tcpClientCtr.sendSearchKeyStudent(tfSearch.getText());
+        ArrayList<Student> arr = tcpClientCtr.receiveSearchStudentResult();
         displayResult(arr);
         tcpClientCtr.closeConnection();
     }
@@ -124,4 +119,12 @@ public class SearchStudentFrm extends javax.swing.JFrame implements ActionListen
             model.addRow(new Object[]{st.getId(), st.getName(), st.getdOb(), st.getAddress()});
         }
     }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblResult;
+    private javax.swing.JTextField tfSearch;
+    // End of variables declaration//GEN-END:variables
 }

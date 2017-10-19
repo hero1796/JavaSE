@@ -5,8 +5,6 @@ package ptit.hungvu.student;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +23,10 @@ public class Student implements Serializable {
         this.address = address;
     }
 
+    public Student(int id) {
+        this.id = id;
+    }
+    
     public int getId() {
         return id;
     }
@@ -55,6 +57,21 @@ public class Student implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object ob) {
+        if (ob == null) {
+            return false;
+        }
+        if (this == ob) {
+            return true;
+        }
+        if (ob instanceof Student) {
+            Student other = (Student) ob;
+            return (this.id == other.getId());
+        }
+        return false;
     }
 
 }
